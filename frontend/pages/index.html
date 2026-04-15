@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FinSight – AI-powered stock analysis platform for retail investors. Real-time data, screeners, calculators, and AI chatbot.">
+    <title>FinSight – AI Stock Analyzer</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ══════════════════════════════════════════════════
+           ANTIGRAVITY-INSPIRED PREMIUM DESIGN SYSTEM
+           ══════════════════════════════════════════════════ */
+
+        /* ── Hero Section ─────────────────────────────────── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: transparent;
+            padding-top: 60px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 960px;
+            padding: 0 32px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(139,92,246,0.06));
+            border: 1px solid rgba(59,130,246,0.12);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 32px;
+            animation: badge-float 3s ease-in-out infinite;
+        }
+        @keyframes badge-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse-dot 2s ease infinite;
+            box-shadow: 0 0 8px rgba(59,130,246,0.4);
+        }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 7vw, 5.2rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 28px;
+            letter-spacing: -2px;
+            color: var(--text);
+        }
+        .hero-title .text-gradient {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-buttons .btn-primary {
+            padding: 16px 36px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(59,130,246,0.25);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-buttons .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(59,130,246,0.35);
+        }
+        .hero-buttons .btn-neon {
+            padding: 16px 36px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            border: 1.5px solid var(--gray-200);
+            background: #fff;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+        .hero-buttons .btn-neon:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* ── Section base ─────────────────────────────────── */
+        .section {
+            padding: 120px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .section-tag {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: inline-block;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08));
+            padding: 6px 16px;
+            border-radius: 50px;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .section-desc {
+            color: var(--text-light);
+            max-width: 580px;
+            margin: 0 auto 0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* ── Feature Cards ────────────────────────────────── */
+        .features-section {
+            background: transparent;
+            padding: 140px 0;
+        }
+        .features-header {
+            margin-bottom: 0;
+            max-width: 520px;
+            padding-top: 0px;
+        }
+        .features-header .section-title {
+            text-align: left;
+        }
+        .features-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: start;
+            width: 100%;
+        }
+        .features-left {
+            min-height: 420px;
+            position: relative;
+        }
+        .features-right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            padding: 22px 24px;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .feature-item:hover {
+            border-color: rgba(59, 130, 246, 0.15);
+            transform: translateX(8px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.08);
+        }
+        .feature-item .fi-icon {
+            flex-shrink: 0;
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+        }
+        .feature-item .fi-icon svg {
+            width: 22px; height: 22px;
+        }
+        .feature-item h4 {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+        .feature-item p {
+            font-size: var(--fs-sm);
+            color: var(--text-light);
+            line-height: 1.6;
+            margin: 0;
+        }
+        .icon-mono { background: transparent; color: var(--text); border: 1px solid var(--gray-200); }
+
+        @media (max-width: 900px) {
+            .features-split { grid-template-columns: 1fr; }
+            .features-left { min-height: 300px; }
+        }
+
+        /* ── Stats ────────────────────────────────────────── */
+        .stats-section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            background: transparent;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .stat-item {
+            padding: 40px 16px;
+            border-radius: 20px;
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .stat-item:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+            transform: translateY(-4px);
+        }
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        .stat-label {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        /* ── Market Preview ───────────────────────────────── */
+        .market-preview {
+            padding: 100px 0;
+        }
+        .market-card { display: none; }
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .market-card-mini {
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        }
+        .market-card-mini:hover {
+            border-color: rgba(59, 130, 246, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.06);
+        }
+        .market-chart-wrap {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 90px;
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .market-chart-wrap canvas { width: 100%; height: 100%; }
+        .market-info { position: relative; z-index: 1; }
+        .market-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .market-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .market-change { font-size: var(--fs-xs); font-weight: 600; }
+        .market-change.up { color: var(--success); }
+        .market-change.down { color: var(--magenta); }
+
+        /* ── CTA Section ──────────────────────────────────── */
+        .cta-section {
+            padding: 140px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            background: linear-gradient(180deg, var(--bg-alt), rgba(59,130,246,0.02));
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-content { position: relative; z-index: 1; }
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 16px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .cta-section p {
+            color: var(--text-light);
+            max-width: 520px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        .float-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.12;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+        .float-shape-1 { width: 400px; height: 400px; background: var(--primary); top: -150px; left: -150px; }
+        .float-shape-2 { width: 300px; height: 300px; background: #8b5cf6; bottom: -100px; right: -80px; }
+        .float-shape-3 { width: 200px; height: 200px; background: #06b6d4; top: 40%; right: 10%; }
+
+        /* ── Premium Section Dividers ─────────────────────── */
+        .section + .section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(59,130,246,0.12), transparent);
+        }
+
+        /* ── Responsive ───────────────────────────────────── */
+        @media (max-width: 1200px) {
+            .market-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 1024px) {
+            .market-card { grid-template-columns: 1fr; }
+            .market-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-title { font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: -1px; }
+            .section { padding: 80px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Ticker Tape -->
+<div class="ticker-wrap"><div class="ticker-move">
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+    <!-- Duplicate for seamless scroll -->
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+    <!-- Third copy for wider screens -->
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+</div></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="navbar-brand">
+            <span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span>
+        </a>
+        <button class="menu-toggle" id="menu-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu" style="vertical-align: middle;"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <div class="navbar-nav" id="navbar-nav">
+            <a href="/pages/screeners.html" class="nav-link">Screeners</a>
+            <a href="/pages/sectors.html" class="nav-link">Sectors</a>
+            <div class="nav-item-dropdown">
+                <a href="#" class="nav-link">Calculators <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-grid">
+                        <a href="/pages/calculators/sip.html">SIP Calculator</a>
+                        <a href="/pages/calculators/brokerage.html">Brokerage Calculator</a>
+                        <a href="/pages/calculators/rd.html">RD Calculator</a>
+                        <a href="/pages/calculators/hra.html">HRA Calculator</a>
+                        <a href="/pages/calculators/home-loan.html">Home Loan EMI Calculator</a>
+                        <a href="/pages/calculators/lumpsum.html">Lumpsum Calculator</a>
+                        <a href="/pages/calculators/margin.html">Margin Calculator</a>
+                        <a href="/pages/calculators/fd.html">FD Calculator</a>
+                        <a href="/pages/calculators/swp.html">SWP Calculator</a>
+                        <a href="/pages/calculators/epf.html">EPF Calculator</a>
+                        <a href="/pages/calculators/tds.html">TDS Calculator</a>
+                        <a href="/pages/calculators/income-tax.html">Income Tax Calculator</a>
+                        <a href="/pages/calculators/emi.html">EMI Calculator</a>
+                        <a href="/pages/calculators/step-up-sip.html">Step-up SIP Calculator</a>
+                        <a href="/pages/calculators/ppf.html">PPF Calculator</a>
+                        <a href="/pages/calculators/gst.html">GST Calculator</a>
+                        <a href="/pages/calculators/car-loan.html">Car Loan Calculator</a>
+                    </div>
+                </div>
+            </div>
+            <a href="/pages/dashboard.html" class="nav-link">Dashboard</a>
+        </div>
+        <div class="navbar-actions">
+            <div class="search-container" style="max-width:240px">
+                <span class="search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+                <input type="text" class="search-input" id="global-search" placeholder="Search stocks...">
+                <div class="search-results" id="search-results"></div>
+            </div>
+            
+            <div id="auth-area"></div>
+        </div>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO SECTION – Particles render behind via fixed canvas
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="pulse"></span> AI-Powered Financial Intelligence
+        </div>
+        <h1 class="hero-title">
+            Invest Smarter.<br>Grow <span class="text-gradient">Faster.</span>
+        </h1>
+        <p class="hero-desc">
+            Real-time market data, AI-driven insights, advanced screeners, and 17+ financial calculators — everything you need to make confident investment decisions.
+        </p>
+        <div class="hero-buttons">
+            <a href="/pages/signup.html" class="btn btn-primary btn-lg">Get Started Free <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 4px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            <a href="/pages/screeners.html" class="btn btn-neon btn-lg">Explore Screeners</a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FEATURES
+     ═══════════════════════════════════════════════════════ -->
+<section class="section features-section" style="background: #ffffff; position: relative;">
+    <div class="container">
+        <div class="features-split">
+            <!-- Left Column: Heading & Particle Icon Area -->
+            <div class="features-left">
+                <div class="features-header reveal-section">
+                    <span class="section-tag" style="margin-bottom: 12px; display: inline-block;">Platform Features</span>
+                    <h2 class="section-title" style="text-align: left;">Everything You Need to<br><span class="text-gradient">Invest Smarter</span></h2>
+                    <p class="section-desc" style="margin-top: 16px; margin-left: 0;">
+                        From real-time market data to AI chatbot, powerful screeners to financial calculators — built for the modern investor.
+                    </p>
+                </div>
+                <!-- Particles form the stock chart icon in this space below the header -->
+            </div>
+
+            <!-- Right Column: Feature List -->
+            <div class="features-right">
+                <div class="feature-item reveal-delay-1">
+                    <div class="fi-icon icon-mono">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <div>
+                        <h4>Real-Time Data</h4>
+                        <p>Live quotes, interactive charts, and historical data for stocks, ETFs, mutual funds, and commodities.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item reveal-delay-2">
+                    <div class="fi-icon icon-mono">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <div>
+                        <h4>AI Chatbot</h4>
+                        <p>Ask questions about any stock and get profile-aware, educational answers powered by artificial intelligence.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item reveal-delay-3">
+                    <div class="fi-icon icon-mono">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                    </div>
+                    <div>
+                        <h4>Stock Screeners</h4>
+                        <p>Use predefined or custom filters to find stocks matching your criteria — PE, ROE, growth, and more.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item reveal-delay-4">
+                    <div class="fi-icon icon-mono">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                    </div>
+                    <div>
+                        <h4>Calculators</h4>
+                        <p>SIP, Lumpsum, SWP, PF, brokerage, and margin calculators with beautiful result charts and simulations.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item reveal-delay-5">
+                    <div class="fi-icon icon-mono">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    </div>
+                    <div>
+                        <h4>Dashboard & Watchlists</h4>
+                        <p>Track your favorite instruments, manage watchlists, and monitor your portfolio in real time.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item reveal-delay-5">
+                    <div class="fi-icon icon-mono">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                    </div>
+                    <div>
+                        <h4>Sector Analysis</h4>
+                        <p>Browse instruments by sector, compare metrics, and discover opportunities across industries.</p>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     STATS
+     ═══════════════════════════════════════════════════════ -->
+<section class="section stats-section" style="background: #f8fafc; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9;">
+    <div class="container">
+        <div class="stats-grid reveal-section">
+            <div class="stat-item">
+                <div class="stat-value" data-value="1000" data-suffix="+">0</div>
+                <div class="stat-label">Instruments Tracked</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" data-value="15" data-suffix="+">0</div>
+                <div class="stat-label">Sectors Covered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" data-value="17" data-suffix="">0</div>
+                <div class="stat-label">Financial Calculators</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" style="font-size: var(--fs-3xl);">AI</div>
+                <div class="stat-label">Powered Insights</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ═══════════════════════════════════════════════════════
+     LIVE MARKET PREVIEW
+     ═══════════════════════════════════════════════════════ -->
+<section class="section market-preview" style="padding-top: 100px; background: transparent;">
+    <div class="container">
+        <div class="text-center reveal-section" style="margin-bottom: 48px;">
+            <span class="section-tag">Market Intelligence</span>
+            <h2 class="section-title">Live Market <span class="text-gradient">Overview</span></h2>
+        </div>
+
+        <div class="market-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Nifty 50 -->
+            <div class="market-card-mini glow-card reveal-section" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">NIFTY 50</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">NIFTY 50 Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹22,514.20</div>
+                    <div class="market-change up" style="font-size:0.9em; font-weight: 600; color:var(--success);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="18 15 12 9 6 15"></polyline></svg> + 101.25 (0.45%)</div>
+                </div>
+            </div>
+            <!-- Sensex -->
+            <div class="market-card-mini glow-card reveal-section reveal-delay-1" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">SENSEX</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">SENSEX Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹73,400.10</div>
+                    <div class="market-change down" style="font-size:0.9em; font-weight: 600; color:var(--danger);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg> - 88.50 (-0.12%)</div>
+                </div>
+            </div>
+            <!-- Banknifty -->
+            <div class="market-card-mini glow-card reveal-section reveal-delay-2" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">BANKNIFTY</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">BANKNIFTY Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹48,930.55</div>
+                    <div class="market-change up" style="font-size:0.9em; font-weight: 600; color:var(--success);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="18 15 12 9 6 15"></polyline></svg> + 388.20 (0.80%)</div>
+                </div>
+            </div>
+            <!-- Finnifty -->
+             <div class="market-card-mini glow-card reveal-section reveal-delay-3" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">FINNIFTY</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">FINNIFTY Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹21,830.55</div>
+                    <div class="market-change up" style="font-size:0.9em; font-weight: 600; color:var(--success);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="18 15 12 9 6 15"></polyline></svg> + 110.20 (0.50%)</div>
+                </div>
+            </div>
+            <!-- Reliance -->
+            <div class="market-card-mini glow-card reveal-section" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">RELIANCE</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">EQ</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹2,895.10</div>
+                    <div class="market-change down" style="font-size:0.9em; font-weight: 600; color:var(--danger);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg> - 10.15 (-0.35%)</div>
+                </div>
+            </div>
+            <!-- TCS -->
+            <div class="market-card-mini glow-card reveal-section reveal-delay-1" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">TCS</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">EQ</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹3,925.00</div>
+                    <div class="market-change up" style="font-size:0.9em; font-weight: 600; color:var(--success);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="18 15 12 9 6 15"></polyline></svg> + 46.50 (1.20%)</div>
+                </div>
+            </div>
+            <!-- HDFC BANK -->
+            <div class="market-card-mini glow-card reveal-section reveal-delay-2" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">HDFC BANK</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">EQ</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹1,510.45</div>
+                    <div class="market-change up" style="font-size:0.9em; font-weight: 600; color:var(--success);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="18 15 12 9 6 15"></polyline></svg> + 10.15 (0.65%)</div>
+                </div>
+            </div>
+            <!-- INFY -->
+             <div class="market-card-mini glow-card reveal-section reveal-delay-3" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">INFY</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">EQ</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹1,425.20</div>
+                    <div class="market-change down" style="font-size:0.9em; font-weight: 600; color:var(--danger);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg> - 15.80 (1.10%)</div>
+                </div>
+            </div>
+            <!-- NIFTY IT -->
+             <div class="market-card-mini glow-card reveal-section" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">NIFTY IT</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">NIFTY IT Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹35,210.20</div>
+                    <div class="market-change up" style="font-size:0.9em; font-weight: 600; color:var(--success);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="18 15 12 9 6 15"></polyline></svg> + 315.80 (0.95%)</div>
+                </div>
+            </div>
+            <!-- NIFTY MIDCAP 100 -->
+             <div class="market-card-mini glow-card reveal-section reveal-delay-1" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">NIFTY MIDCAP</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">MIDCAP Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹49,425.20</div>
+                    <div class="market-change up" style="font-size:0.9em; font-weight: 600; color:var(--success);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="18 15 12 9 6 15"></polyline></svg> + 515.80 (1.10%)</div>
+                </div>
+            </div>
+            <!-- NIFTY AUTO -->
+             <div class="market-card-mini glow-card reveal-section reveal-delay-2" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">NIFTY AUTO</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">NIFTY AUTO Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹21,425.20</div>
+                    <div class="market-change down" style="font-size:0.9em; font-weight: 600; color:var(--danger);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg> - 110.80 (-0.50%)</div>
+                </div>
+            </div>
+            <!-- NIFTY METAL -->
+             <div class="market-card-mini glow-card reveal-section reveal-delay-3" style="cursor:pointer; background: var(--surface); border-radius: var(--radius-lg); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid var(--gray-200); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: all 0.25s ease;">
+                <div class="market-info" style="flex: 1; z-index: 2;">
+                    <div class="market-label" style="font-weight:700; font-size:1.1em; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0;">NIFTY METAL</div>
+                    <div class="market-desc" style="font-size:0.85em; color:var(--text-light); margin-bottom: 8px;">NIFTY METAL Index</div>
+                    <div class="market-value" style="font-size:1.4em; color:var(--text); font-weight: 600; margin-bottom:0px;">₹8,425.20</div>
+                    <div class="market-change down" style="font-size:0.9em; font-weight: 600; color:var(--danger);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 2px; margin-right: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg> - 30.80 (-0.35%)</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:32px;">
+            <a href="/pages/market-overview.html" class="btn" style="border:1px solid var(--primary); color:var(--primary); background:transparent;">View Full Market Dashboard</a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     MARKET NEWS (Dynamic from /api/news)
+     ═══════════════════════════════════════════════════════ -->
+<section class="section" style="background: #f8fafc; border-top: 1px solid #f1f5f9;">
+    <div class="container" style="max-width: 1400px; padding: 0 16px;">
+        <div class="text-center reveal-section" style="margin-bottom: 48px;">
+            <span class="section-tag">Latest Updates</span>
+            <h2 class="section-title">Market <span class="text-gradient">News</span></h2>
+        </div>
+        <div id="news-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;">
+            <!-- Skeleton loaders while news loads -->
+            <div class="glow-card" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:24px;">
+                <div class="skeleton skeleton-text short"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text medium"></div>
+            </div>
+            <div class="glow-card" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:24px;">
+                <div class="skeleton skeleton-text short"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text medium"></div>
+            </div>
+            <div class="glow-card" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:24px;">
+                <div class="skeleton skeleton-text short"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text medium"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+(async function loadNews() {
+    const grid = document.getElementById('news-grid');
+    if (!grid) return;
+    const categoryColors = {
+        'Economy': 'var(--primary)', 'Markets': 'var(--emerald)', 'Corporate': 'var(--blue)',
+        'Global': 'var(--magenta)', 'IPO': 'var(--cyan)', 'Commodities': 'var(--primary)'
+    };
+    try {
+        const res = await fetch('/api/news');
+        const data = await res.json();
+        const news = (data.news || []).slice(0, 6);
+        if (news.length > 0) {
+            grid.innerHTML = news.map((item, idx) => {
+                const cat = item.category || 'Markets';
+                const color = categoryColors[cat] || 'var(--primary)';
+                const delay = idx % 3 === 0 ? '' : idx % 3 === 1 ? ' reveal-delay-1' : ' reveal-delay-2';
+                return `<div class="glow-card reveal-section${delay}" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:24px; cursor:pointer;" onclick="window.open('${item.link}','_blank')">
+                    <div style="font-size:0.75rem; color:${color}; font-weight:700; margin-bottom:8px; text-transform:uppercase;">${cat}</div>
+                    <h3 style="font-size:1.1rem; margin-bottom:12px; color:var(--text);">${item.title}</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
+                        <span style="font-size:0.8rem; color:var(--text-muted);">${item.source || 'News'}</span>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">${item.published ? new Date(item.published).toLocaleDateString('en-IN', {day:'numeric',month:'short'}) : ''}</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+    } catch(e) { console.log('News load error:', e); }
+    // Auto-refresh every 5 minutes
+    setTimeout(loadNews, 300000);
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     TODAY'S TOP STOCKS (4x2 Grid)
+     ═══════════════════════════════════════════════════════ -->
+<section class="section" style="background:transparent;">
+    <div class="container">
+        <div class="text-center reveal-section" style="margin-bottom: 48px;">
+            <span class="section-tag">Movers & Shakers</span>
+            <h2 class="section-title">Today's <span class="text-gradient">Top Stocks</span></h2>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:16px;">
+            <!-- Row 1 -->
+            <div class="glow-card reveal-section" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">TATA STEEL</h3>
+                    <span style="background:rgba(34, 197, 94, 0.1); color:var(--success); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">+ 4.2%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹165.40</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glow-card reveal-section reveal-delay-1" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">ZOMATO</h3>
+                    <span style="background:rgba(34, 197, 94, 0.1); color:var(--success); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">+ 3.5%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹185.90</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glow-card reveal-section reveal-delay-2" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">MARUTI</h3>
+                    <span style="background:rgba(34, 197, 94, 0.1); color:var(--success); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">+ 2.1%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹12,650.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glow-card reveal-section reveal-delay-3" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">ITC</h3>
+                    <span style="background:rgba(34, 197, 94, 0.1); color:var(--success); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">+ 1.8%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹435.50</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="glow-card reveal-section" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">WIPRO</h3>
+                    <span style="background:rgba(239, 68, 68, 0.1); color:var(--danger); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">- 2.8%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹460.25</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glow-card reveal-section reveal-delay-1" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">INFY</h3>
+                    <span style="background:rgba(239, 68, 68, 0.1); color:var(--danger); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">- 1.5%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹1,425.20</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glow-card reveal-section reveal-delay-2" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">TITAN</h3>
+                    <span style="background:rgba(239, 68, 68, 0.1); color:var(--danger); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">- 1.2%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹3,450.15</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glow-card reveal-section reveal-delay-3" style="background:#fff; border-radius:var(--radius-lg); border:1px solid var(--gray-200); padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                    <h3 style="font-size:1.1rem; color:var(--text);">M&M</h3>
+                    <span style="background:rgba(34, 197, 94, 0.1); color:var(--success); padding:4px 8px; border-radius:4px; font-size:0.85rem; font-weight:600;">+ 0.8%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text);">₹2,105.80</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:32px;">
+            <a href="/pages/categories/top-gainers.html" class="btn" style="border:1px solid var(--primary); color:var(--primary); background:transparent;">View Top Movers</a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TECHNICAL INDICATORS (TECHNICAL)
+     ═══════════════════════════════════════════════════════ -->
+<section class="section" style="background: #ffffff; position: relative; z-index: 2;">
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:40px;">
+            <div style="flex:1; min-width:300px;" class="reveal-section">
+                <span class="section-tag">Advanced Analysis</span>
+                <h2 class="section-title">Technical <span class="text-gradient">Indicators</span></h2>
+                <p class="section-desc" style="margin-left:0; margin-top:16px; margin-bottom:24px;">
+                    Go beyond basic charts. Identify overbought/oversold conditions, momentum shifts, and trend reversals with our suite of built-in technical indicators.
+                </p>
+                <ul style="list-style:none; padding:0; display:grid; gap:12px; color:var(--text-light);">
+                    <li style="display:flex; align-items:center; gap:12px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Relative Strength Index (RSI)</li>
+                    <li style="display:flex; align-items:center; gap:12px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Moving Averages (SMA & EMA)</li>
+                    <li style="display:flex; align-items:center; gap:12px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Moving Average Convergence Divergence (MACD)</li>
+                    <li style="display:flex; align-items:center; gap:12px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Bollinger Bands Support</li>
+                </ul>
+                <div style="margin-top:32px;">
+                    <a href="/pages/screeners.html" class="btn btn-primary">Try Technical Screeners</a>
+                </div>
+            </div>
+            <div style="flex:1; min-width:300px; padding:32px; background:#ffffff; border:1px solid rgba(0,0,0,0.04); border-radius:16px; box-shadow:0 12px 40px rgba(0,0,0,0.06);" class="reveal-section reveal-delay-2">
+                <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+                    <span style="font-weight:700; color:var(--text);">RSI Alert</span>
+                    <span style="color:var(--danger); font-size:0.85rem; padding:4px 10px; border-radius:6px; background:rgba(239,68,68,0.1); font-weight:600;">Oversold (25.4)</span>
+                </div>
+                <div style="width:100%; height:8px; background:var(--gray-200); border-radius:4px; overflow:hidden; margin-bottom:32px;">
+                    <div style="width:25.4%; height:100%; background:var(--danger); border-radius:4px;"></div>
+                </div>
+                
+                <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+                    <span style="font-weight:700; color:var(--text);">MACD Crossover</span>
+                    <span style="color:var(--success); font-size:0.85rem; padding:4px 10px; border-radius:6px; background:rgba(34,197,94,0.1); font-weight:600;">Bullish Trigger</span>
+                </div>
+                <div style="width:100%; height:48px; display:flex; align-items:flex-end; gap:6px; margin-bottom:8px;">
+                    <div style="flex:1; background:rgba(239,68,68,0.7); height:80%; border-radius:4px 4px 0 0;"></div>
+                    <div style="flex:1; background:rgba(239,68,68,0.5); height:60%; border-radius:4px 4px 0 0;"></div>
+                    <div style="flex:1; background:rgba(239,68,68,0.2); height:30%; border-radius:4px 4px 0 0;"></div>
+                    <div style="flex:1; background:rgba(34,197,94,0.3); height:40%; border-radius:4px 4px 0 0;"></div>
+                    <div style="flex:1; background:rgba(34,197,94,0.6); height:70%; border-radius:4px 4px 0 0;"></div>
+                    <div style="flex:1; background:rgba(34,197,94,0.9); height:100%; border-radius:4px 4px 0 0;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ═══════════════════════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════════════════════ -->
+<section class="cta-section">
+    <div class="float-shape float-shape-1"></div>
+    <div class="float-shape float-shape-2"></div>
+    <div class="float-shape float-shape-3"></div>
+    <div class="cta-content container reveal-section">
+        <span class="section-tag">Start Today</span>
+        <h2>Ready to Start <span class="text-gradient">Analyzing?</span></h2>
+        <p>Join thousands of smart investors who use FinSight to make data-driven decisions.</p>
+        <a href="/pages/signup.html" class="btn btn-primary btn-lg">Create Free Account</a>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-grid" style="grid-template-columns: minmax(280px, 1.5fr) 1fr 2fr 1fr;">
+            <div class="footer-col" style="max-width: 280px;">
+                <a href="/" class="navbar-brand" style="margin-bottom: 16px; display: inline-flex; color: var(--text); text-decoration: none;">
+                    <span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span>
+                </a>
+                <p style="color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6;">
+                    <strong style="color: var(--text-light);">FinSight Analytics</strong><br>
+                    Technology & Financial Tools for the modern retail investor.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="/pages/top-stocks.html">Top Stocks</a>
+                <a href="/pages/top-etfs.html">Top ETFs</a>
+                <a href="/pages/top-funds.html">Mutual Funds</a>
+                <a href="/pages/commodities.html">Commodities</a>
+                <a href="/pages/currencies.html">Currencies</a>
+                <a href="/pages/screeners.html">Stock Screener</a>
+            </div>
+            <div class="footer-col">
+                <h4>Calculators</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px;">
+                    <a href="/pages/calculators/sip.html">SIP Calculator</a>
+                    <a href="/pages/calculators/brokerage.html">Brokerage</a>
+                    <a href="/pages/calculators/rd.html">RD Calculator</a>
+                    <a href="/pages/calculators/fd.html">FD Calculator</a>
+                    <a href="/pages/calculators/home-loan.html">Home Loan EMI</a>
+                    <a href="/pages/calculators/lumpsum.html">Lumpsum</a>
+                    <a href="/pages/calculators/margin.html">Margin</a>
+                    <a href="/pages/calculators/swp.html">SWP</a>
+                    <a href="/pages/calculators/epf.html">EPF</a>
+                    <a href="/pages/calculators/tds.html">TDS</a>
+                    <a href="/pages/calculators/income-tax.html">Income Tax</a>
+                    <a href="/pages/calculators/emi.html">EMI</a>
+                    <a href="/pages/calculators/step-up-sip.html">Step-up SIP</a>
+                    <a href="/pages/calculators/ppf.html">PPF</a>
+                    <a href="/pages/calculators/gst.html">GST</a>
+                    <a href="/pages/calculators/car-loan.html">Car Loan</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="/pages/about.html">About Us</a>
+                <a href="/pages/help.html">Help & Support</a>
+                <a href="/pages/trust.html">Trust & Safety</a>
+                <a href="/pages/guidelines.html">Community Guidelines</a>
+                <a href="/pages/disclosures.html">Disclosures</a>
+                <a href="/pages/privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 <span class="text-gradient">FinSight</span>. Educational platform — not investment advice.
+        </div>
+    </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/animations.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof initAnimations === 'function') {
+            initAnimations();
+        }
+    });
+</script>
+</body>
+</html>
+

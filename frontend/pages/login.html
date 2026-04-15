@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login – FinSight</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <style>
+        .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 24px 40px; background: var(--bg-alt); }
+        .auth-card { background: var(--surface); border-radius: var(--radius-xl); padding: 48px 40px; max-width: 440px; width: 100%; box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); }
+        .auth-card h1 { font-size: var(--fs-2xl); margin-bottom: 8px; text-align: center; }
+        .auth-card .subtitle { text-align: center; color: var(--text-light); margin-bottom: 32px; font-size: var(--fs-sm); }
+        .auth-card .form-group { margin-bottom: 20px; }
+        .auth-footer { text-align: center; margin-top: 24px; font-size: var(--fs-sm); color: var(--text-light); }
+        .auth-footer a { color: var(--teal); font-weight: 600; text-decoration: none; }
+        .auth-footer a:hover { text-decoration: underline; }
+        .step { display: none; }
+        .step.active { display: block; }
+        .otp-input-group { display: flex; gap: 8px; justify-content: center; margin: 24px 0; }
+        .otp-input-group input {
+            width: 48px; height: 56px; text-align: center; font-size: 1.5rem; font-weight: 700;
+            border: 2px solid var(--border); border-radius: var(--radius); background: var(--surface);
+            color: var(--text); transition: var(--transition);
+        }
+        .otp-input-group input:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px rgba(46,196,182,0.15); }
+        .timer-text { text-align: center; font-size: var(--fs-sm); color: var(--text-light); margin-top: 16px; }
+        .timer-text a { color: var(--teal); font-weight: 600; text-decoration: none; cursor: pointer; }
+        .timer-text a.disabled { color: var(--gray-400); pointer-events: none; }
+        .back-link { display: inline-flex; align-items: center; gap: 4px; color: var(--text-light); font-size: var(--fs-sm); text-decoration: none; margin-bottom: 16px; }
+        .back-link:hover { color: var(--teal); }
+        .divider { display: flex; align-items: center; gap: 12px; margin: 24px 0; color: var(--text-light); font-size: var(--fs-sm); }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .masked-contact { font-weight: 600; color: var(--text); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 12px; border-radius: var(--radius); width: 100%; font-size: var(--fs-base); cursor: pointer; transition: var(--transition); }
+        .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+    </style>
+</head>
+<body>
+
+<div class="ticker-wrap"><div class="ticker-move">
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+</div></div></div>
+
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="/" class="navbar-brand"><span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span></a>
+            <div class="navbar-actions">
+                
+                <div id="auth-area"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-page">
+        <div class="auth-card">
+
+            <!-- ═══ Step 1: Enter Email or Phone ═══ -->
+            <div class="step active" id="step-identifier">
+                <h1>enter you email</h1>
+                <p class="subtitle">Enter your email to continue</p>
+                <form id="identifier-form">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-input" id="identifier-input" placeholder="you@example.com" required autofocus>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%" id="send-otp-btn">Get OTP</button>
+                </form>
+                <div class="divider">or</div>
+                <button class="btn-outline" onclick="showPasswordLogin()">Login with Password</button>
+                <div class="auth-footer">
+                    Don't have an account? <a href="/pages/signup.html">Sign Up</a>
+                </div>
+            </div>
+
+            <!-- ═══ Step 2: Enter OTP ═══ -->
+            <div class="step" id="step-otp">
+                <a href="#" class="back-link" onclick="goBack('step-identifier')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back</a>
+                <h1>Enter OTP</h1>
+                <p class="subtitle">We've sent a 6-digit code to <span class="masked-contact" id="masked-contact"></span></p>
+                <div class="otp-input-group" id="otp-group">
+                    <input type="text" maxlength="1" class="otp-digit" data-index="0" inputmode="numeric" autofocus>
+                    <input type="text" maxlength="1" class="otp-digit" data-index="1" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-digit" data-index="2" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-digit" data-index="3" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-digit" data-index="4" inputmode="numeric">
+                    <input type="text" maxlength="1" class="otp-digit" data-index="5" inputmode="numeric">
+                </div>
+                <button class="btn btn-primary" style="width:100%" id="verify-otp-btn" onclick="verifyLoginOtp()">Verify & Login</button>
+                <div class="timer-text">
+                    <span id="resend-timer">Resend OTP in <strong id="countdown">30</strong>s</span>
+                    <a href="#" id="resend-link" class="disabled" onclick="resendOtp(event)">Resend OTP</a>
+                </div>
+            </div>
+
+            <!-- ═══ Step 3: Password Login (fallback) ═══ -->
+            <div class="step" id="step-password">
+                <a href="#" class="back-link" onclick="goBack('step-identifier')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back</a>
+                <h1>Login with Password</h1>
+                <p class="subtitle">Enter your credentials</p>
+                <form id="password-form">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="pw-email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="pw-password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%">Log In</button>
+                </form>
+                <div class="auth-footer" style="margin-top:16px">
+                    <a href="/pages/forgot-password.html">Forgot Password?</a>
+                </div>
+                <div class="auth-footer">
+                    Don't have an account? <a href="/pages/signup.html">Sign Up</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-grid" style="grid-template-columns: minmax(280px, 1.5fr) 1fr 2fr 1fr;">
+            <div class="footer-col" style="max-width: 280px;">
+                <a href="/" class="navbar-brand" style="margin-bottom: 16px; display: inline-flex; color: var(--text); text-decoration: none;">
+                    <span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span>
+                </a>
+                <p style="color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6;">
+                    <strong style="color: var(--text-light);">FinSight Analytics</strong><br>
+                    Technology & Financial Tools for the modern retail investor.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="/pages/top-stocks.html">Top Stocks</a>
+                <a href="/pages/top-etfs.html">Top ETFs</a>
+                <a href="/pages/top-funds.html">Mutual Funds</a>
+                <a href="/pages/commodities.html">Commodities</a>
+                <a href="/pages/currencies.html">Currencies</a>
+                <a href="/pages/screeners.html">Stock Screener</a>
+            </div>
+            <div class="footer-col">
+                <h4>Calculators</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px;">
+                    <a href="/pages/calculators/sip.html">SIP Calculator</a>
+                    <a href="/pages/calculators/brokerage.html">Brokerage</a>
+                    <a href="/pages/calculators/rd.html">RD Calculator</a>
+                    <a href="/pages/calculators/fd.html">FD Calculator</a>
+                    <a href="/pages/calculators/home-loan.html">Home Loan EMI</a>
+                    <a href="/pages/calculators/lumpsum.html">Lumpsum</a>
+                    <a href="/pages/calculators/margin.html">Margin</a>
+                    <a href="/pages/calculators/swp.html">SWP</a>
+                    <a href="/pages/calculators/epf.html">EPF</a>
+                    <a href="/pages/calculators/tds.html">TDS</a>
+                    <a href="/pages/calculators/income-tax.html">Income Tax</a>
+                    <a href="/pages/calculators/emi.html">EMI</a>
+                    <a href="/pages/calculators/step-up-sip.html">Step-up SIP</a>
+                    <a href="/pages/calculators/ppf.html">PPF</a>
+                    <a href="/pages/calculators/gst.html">GST</a>
+                    <a href="/pages/calculators/car-loan.html">Car Loan</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="/pages/about.html">About Us</a>
+                <a href="/pages/help.html">Help & Support</a>
+                <a href="/pages/trust.html">Trust & Safety</a>
+                <a href="/pages/guidelines.html">Community Guidelines</a>
+                <a href="/pages/disclosures.html">Disclosures</a>
+                <a href="/pages/privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 <span class="text-gradient">FinSight</span>. Educational platform — not investment advice.
+        </div>
+    </div>
+</footer>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>
+

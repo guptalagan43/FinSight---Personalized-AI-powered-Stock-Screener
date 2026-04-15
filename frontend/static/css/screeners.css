@@ -1,0 +1,123 @@
+/*
+ * FinSight – Screeners & Sectors page styles
+ */
+
+/* FinSight cards */
+.screener-cards {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px; margin: 24px 0;
+}
+.screener-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--gray-200);
+    transition: var(--transition);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.screener-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    transform: translateY(-3px);
+}
+.screener-card .screener-icon {
+    width: 48px; height: 48px; border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 14px;
+}
+.screener-card h4 { margin-bottom: 6px; font-weight: 600; }
+.screener-card p { font-size: var(--fs-sm); color: var(--text-light); line-height: 1.5; }
+
+/* Screener icon color variants */
+.screener-card:nth-child(12n+1) .screener-icon  { background: #dbeafe; color: #2563eb; }
+.screener-card:nth-child(12n+2) .screener-icon  { background: #dcfce7; color: #16a34a; }
+.screener-card:nth-child(12n+3) .screener-icon  { background: #fef3c7; color: #d97706; }
+.screener-card:nth-child(12n+4) .screener-icon  { background: #fce7f3; color: #db2777; }
+.screener-card:nth-child(12n+5) .screener-icon  { background: #e0e7ff; color: #4f46e5; }
+.screener-card:nth-child(12n+6) .screener-icon  { background: #ccfbf1; color: #0d9488; }
+.screener-card:nth-child(12n+7) .screener-icon  { background: #fae8ff; color: #a855f7; }
+.screener-card:nth-child(12n+8) .screener-icon  { background: #fee2e2; color: #dc2626; }
+.screener-card:nth-child(12n+9) .screener-icon  { background: #f0fdf4; color: #15803d; }
+.screener-card:nth-child(12n+10) .screener-icon { background: #eff6ff; color: #1d4ed8; }
+.screener-card:nth-child(12n+11) .screener-icon { background: #fefce8; color: #ca8a04; }
+.screener-card:nth-child(12n+12) .screener-icon { background: #f5f3ff; color: #7c3aed; }
+
+/* Custom screener builder */
+.filter-row {
+    display: grid; grid-template-columns: 1fr 100px 120px 40px; gap: 10px;
+    align-items: center; margin-bottom: 10px;
+}
+.filter-row select, .filter-row input {
+    padding: 8px 12px; border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm); font-size: var(--fs-sm);
+    font-family: var(--font); background: #ffffff; color: var(--text);
+}
+.filter-remove {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid var(--danger); background: transparent;
+    color: var(--danger); cursor: pointer; font-size: 16px;
+    transition: var(--transition);
+}
+.filter-remove:hover { background: var(--danger); color: var(--white); }
+
+/* Sector cards */
+.sector-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px; margin: 24px 0;
+}
+.sector-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--gray-200);
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.sector-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    transform: translateY(-3px);
+}
+.sector-card .sector-icon {
+    width: 52px; height: 52px; border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 14px;
+}
+/* Each sector gets a unique, vibrant pastel icon background */
+.sector-card .sector-icon.it            { background: #dbeafe; color: #2563eb; }
+.sector-card .sector-icon.banking       { background: #dcfce7; color: #16a34a; }
+.sector-card .sector-icon.pharma        { background: #fce7f3; color: #db2777; }
+.sector-card .sector-icon.energy        { background: #fef3c7; color: #d97706; }
+.sector-card .sector-icon.fmcg          { background: #f5f3ff; color: #7c3aed; }
+.sector-card .sector-icon.auto          { background: #e0e7ff; color: #4f46e5; }
+.sector-card .sector-icon.finserv       { background: #ccfbf1; color: #0d9488; }
+.sector-card .sector-icon.metals        { background: #f1f5f9; color: #475569; }
+.sector-card .sector-icon.realty        { background: #fae8ff; color: #a855f7; }
+.sector-card .sector-icon.infra         { background: #fee2e2; color: #dc2626; }
+.sector-card .sector-icon.telecom       { background: #e0f2fe; color: #0284c7; }
+.sector-card .sector-icon.media         { background: #fef9c3; color: #ca8a04; }
+.sector-card .sector-icon.chemicals     { background: #d1fae5; color: #059669; }
+.sector-card .sector-icon.consumer      { background: #ffe4e6; color: #e11d48; }
+.sector-card .sector-icon.insurance     { background: #cffafe; color: #0891b2; }
+.sector-card .sector-icon.diversified   { background: #e2e8f0; color: #334155; }
+.sector-card .sector-icon.etf           { background: #dbeafe; color: #1d4ed8; }
+.sector-card .sector-icon.fund          { background: #e0e7ff; color: #6366f1; }
+.sector-card .sector-icon.index         { background: #f0fdf4; color: #15803d; }
+.sector-card .sector-icon.commodity     { background: #fef3c7; color: #b45309; }
+.sector-card .sector-icon.default       { background: #f1f5f9; color: #475569; }
+
+.sector-card h4 { margin-bottom: 4px; font-weight: 600; }
+.sector-card .sector-stats {
+    font-size: var(--fs-sm); color: var(--text-light);
+}
+
+/* Admin styles */
+.admin-card {
+    background: #ffffff; border-radius: var(--radius-lg);
+    padding: 24px; border: 1px solid var(--gray-200);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}

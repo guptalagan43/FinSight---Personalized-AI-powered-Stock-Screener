@@ -1,0 +1,219 @@
+/*
+ * FinSight – Dashboard Professional Layout
+ */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+/* Sidebar Elements */
+.dashboard-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Profile card - Professional minimalist */
+.profile-card {
+    background: var(--surface);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--blue));
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.profile-card h3 {
+    color: var(--text);
+    margin-bottom: 4px;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+}
+
+.profile-email {
+    color: var(--text-light);
+    font-size: var(--fs-sm);
+}
+
+.profile-meta {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.profile-card .profile-meta span {
+    background: var(--gray-100);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid var(--gray-200);
+}
+
+/* Vertical Portfolio Summary */
+.portfolio-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.stat-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    text-align: left;
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.stat-card .stat-label {
+    font-size: var(--fs-xs);
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.stat-card .stat-value {
+    font-size: var(--fs-2xl);
+    font-weight: 800;
+    margin-top: 8px;
+    color: var(--text);
+    font-family: var(--font-display);
+}
+
+/* Main Content Area */
+.dashboard-main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.dashboard-card {
+    background: var(--surface);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 4px;
+    display: inline-block;
+}
+
+/* Professional Data Tables */
+.professional-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 16px;
+}
+
+.professional-table th {
+    text-align: left;
+    padding: 16px;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--gray-50);
+}
+
+.professional-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: var(--fs-sm);
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.professional-table tr:last-child td {
+    border-bottom: none;
+}
+
+.professional-table tr:hover td {
+    background: var(--gray-50);
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+/* Watchlist overrides */
+.watchlist-card { margin-bottom: 16px; }
+.watchlist-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; border-bottom: 1px solid var(--gray-100);
+    transition: var(--transition);
+}
+.watchlist-item:hover {
+    background: var(--gray-50);
+}
+.watchlist-item:last-child { border-bottom: none; }
+.watchlist-item .instrument-name {
+    font-weight: 600; font-size: var(--fs-sm); color: var(--text);
+}
+.watchlist-item .instrument-price {
+    text-align: right;
+}
+.watchlist-item .instrument-price .price {
+    font-weight: 700; font-size: var(--fs-base); color: var(--text);
+}
+.watchlist-item .instrument-price .change {
+    font-size: var(--fs-xs); font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-summary {
+        flex-direction: row;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-summary {
+        grid-template-columns: 1fr;
+    }
+    .dashboard-card {
+        padding: 20px;
+    }
+}

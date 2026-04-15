@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up – FinSight</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <style>
+        .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 24px 40px; background: var(--bg-alt); }
+        .auth-card { background: var(--surface); border-radius: var(--radius-xl); padding: 48px 40px; max-width: 440px; width: 100%; box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); }
+        .auth-card h1 { font-size: var(--fs-2xl); margin-bottom: 8px; text-align: center; }
+        .auth-card .subtitle { text-align: center; color: var(--text-light); margin-bottom: 32px; font-size: var(--fs-sm); }
+        .auth-footer { text-align: center; margin-top: 24px; font-size: var(--fs-sm); color: var(--text-light); }
+        .auth-footer a { color: var(--teal); font-weight: 600; }
+        .step { display: none; }
+        .step.active { display: block; }
+        .otp-input { text-align: center; font-size: var(--fs-2xl); letter-spacing: 8px; font-weight: 700; }
+        .password-strength { height: 4px; border-radius: 2px; margin-top: 6px; transition: var(--transition); }
+    </style>
+</head>
+<body>
+
+<div class="ticker-wrap"><div class="ticker-move">
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+
+</div></div></div>
+
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="/" class="navbar-brand"><span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span></a>
+            <div class="navbar-actions">
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-page">
+        <div class="auth-card">
+            <!-- Step 1: Registration -->
+            <div class="step active" id="step-register">
+                <h1>Create Account</h1>
+                <p class="subtitle">Start your investment journey with FinSight</p>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="name" placeholder="Rahul Sharma" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="email" placeholder="rahul@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" id="password" placeholder="Min 8 characters" required minlength="8">
+                        <div class="password-strength" id="pw-strength"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%">Sign Up</button>
+                </form>
+                <div class="auth-footer">Already have an account? <a href="/pages/login.html">Log In</a></div>
+            </div>
+
+            <!-- Step 2: OTP Verification -->
+            <div class="step" id="step-otp">
+                <h1>Verify Email</h1>
+                <p class="subtitle">Enter the 6-digit code sent to your email</p>
+                <div class="form-group">
+                    <input type="text" class="form-input otp-input" id="otp-input" maxlength="6" placeholder="000000">
+                </div>
+                <button class="btn btn-teal" style="width:100%" id="verify-btn">Verify & Continue</button>
+                <div class="auth-footer" style="margin-top:16px">
+                    <a href="#" id="resend-otp">Resend OTP</a>
+                </div>
+            </div>
+
+            <!-- Step 3: Success -->
+            <div class="step" id="step-success">
+                <div style="text-align:center">
+                    <div style="font-size:64px;margin-bottom:16px">🎉</div>
+                    <h1>You're In!</h1>
+                    <p class="subtitle">Your account has been verified successfully.</p>
+                    <a href="/pages/login.html" class="btn btn-primary" style="width:100%">Log In Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-grid" style="grid-template-columns: minmax(280px, 1.5fr) 1fr 2fr 1fr;">
+            <div class="footer-col" style="max-width: 280px;">
+                <a href="/" class="navbar-brand" style="margin-bottom: 16px; display: inline-flex; color: var(--text); text-decoration: none;">
+                    <span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span>
+                </a>
+                <p style="color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6;">
+                    <strong style="color: var(--text-light);">FinSight Analytics</strong><br>
+                    Technology & Financial Tools for the modern retail investor.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="/pages/top-stocks.html">Top Stocks</a>
+                <a href="/pages/top-etfs.html">Top ETFs</a>
+                <a href="/pages/top-funds.html">Mutual Funds</a>
+                <a href="/pages/commodities.html">Commodities</a>
+                <a href="/pages/currencies.html">Currencies</a>
+                <a href="/pages/screeners.html">Stock Screener</a>
+            </div>
+            <div class="footer-col">
+                <h4>Calculators</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px;">
+                    <a href="/pages/calculators/sip.html">SIP Calculator</a>
+                    <a href="/pages/calculators/brokerage.html">Brokerage</a>
+                    <a href="/pages/calculators/rd.html">RD Calculator</a>
+                    <a href="/pages/calculators/fd.html">FD Calculator</a>
+                    <a href="/pages/calculators/home-loan.html">Home Loan EMI</a>
+                    <a href="/pages/calculators/lumpsum.html">Lumpsum</a>
+                    <a href="/pages/calculators/margin.html">Margin</a>
+                    <a href="/pages/calculators/swp.html">SWP</a>
+                    <a href="/pages/calculators/epf.html">EPF</a>
+                    <a href="/pages/calculators/tds.html">TDS</a>
+                    <a href="/pages/calculators/income-tax.html">Income Tax</a>
+                    <a href="/pages/calculators/emi.html">EMI</a>
+                    <a href="/pages/calculators/step-up-sip.html">Step-up SIP</a>
+                    <a href="/pages/calculators/ppf.html">PPF</a>
+                    <a href="/pages/calculators/gst.html">GST</a>
+                    <a href="/pages/calculators/car-loan.html">Car Loan</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="/pages/about.html">About Us</a>
+                <a href="/pages/help.html">Help & Support</a>
+                <a href="/pages/trust.html">Trust & Safety</a>
+                <a href="/pages/guidelines.html">Community Guidelines</a>
+                <a href="/pages/disclosures.html">Disclosures</a>
+                <a href="/pages/privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 <span class="text-gradient">FinSight</span>. Educational platform — not investment advice.
+        </div>
+    </div>
+</footer>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>
+

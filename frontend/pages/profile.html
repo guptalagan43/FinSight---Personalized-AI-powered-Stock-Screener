@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your FinSight profile – manage your account details, preferences, and settings.">
+    <title>Profile & Settings – FinSight</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <style>
+        .profile-page { max-width: 840px; margin: 0 auto; padding: 40px 24px 80px; }
+        .profile-hero {
+            display: flex; align-items: center; gap: 24px;
+            padding: 32px; margin-bottom: 32px;
+            background: var(--surface); border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+        }
+        .profile-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--cyan));
+            color: #ffffff; font-size: 28px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; font-family: var(--font-display);
+            letter-spacing: 1px;
+        }
+        .profile-hero-info h2 { font-size: var(--fs-2xl); margin-bottom: 4px; font-family: var(--font); }
+        .profile-hero-info p { color: var(--text-light); font-size: var(--fs-sm); }
+        .profile-hero-info .badge { margin-top: 8px; }
+
+        .profile-section {
+            background: var(--surface); border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200); padding: 28px;
+            margin-bottom: 24px; box-shadow: var(--shadow-sm);
+        }
+        .profile-section-title {
+            font-size: var(--fs-lg); font-weight: 700; margin-bottom: 24px;
+            padding-bottom: 16px; border-bottom: 1px solid var(--gray-200);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .profile-section-title svg {
+            width: 20px; height: 20px; color: var(--primary);
+        }
+
+        .profile-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+        .profile-field { }
+        .profile-field label {
+            display: block; font-size: var(--fs-xs); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text-muted); margin-bottom: 6px;
+        }
+        .profile-field .value {
+            font-size: var(--fs-base); font-weight: 500; color: var(--text);
+            padding: 10px 14px; background: var(--bg-alt);
+            border-radius: var(--radius); border: 1px solid var(--gray-200);
+            min-height: 42px; display: flex; align-items: center;
+        }
+        .profile-field .value.empty { color: var(--text-muted); font-style: italic; }
+
+        .profile-field input, .profile-field select {
+            width: 100%; padding: 10px 14px;
+            font-family: var(--font); font-size: var(--fs-base);
+            background: var(--surface); color: var(--text);
+            border: 1px solid var(--gray-200); border-radius: var(--radius);
+            outline: none; transition: var(--transition);
+        }
+        .profile-field input:focus, .profile-field select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        }
+
+        .profile-actions {
+            display: flex; gap: 12px; margin-top: 24px;
+            padding-top: 20px; border-top: 1px solid var(--gray-200);
+        }
+        .profile-actions .btn { min-width: 120px; }
+
+        .quick-links {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        }
+        .quick-link {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 18px; border-radius: var(--radius);
+            border: 1px solid var(--gray-200); background: var(--surface);
+            text-decoration: none; color: var(--text);
+            transition: var(--transition); font-size: var(--fs-sm); font-weight: 500;
+        }
+        .quick-link:hover {
+            border-color: var(--primary); background: var(--blue-dim);
+            color: var(--primary);
+        }
+        .quick-link-icon {
+            width: 36px; height: 36px; border-radius: var(--radius);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; flex-shrink: 0;
+        }
+
+        .edit-mode .value { display: none; }
+        .edit-mode input, .edit-mode select { display: block; }
+        .view-mode input, .view-mode select { display: none; }
+        .view-mode .value { display: flex; }
+
+        .toast-container { position: fixed; top: 24px; right: 24px; z-index: 10000; }
+
+        @media (max-width: 640px) {
+            .profile-grid { grid-template-columns: 1fr; }
+            .profile-hero { flex-direction: column; text-align: center; }
+            .quick-links { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Ticker Tape -->
+<div class="ticker-wrap"><div class="ticker-move">
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+    <div class="ticker-item up"><span>NIFTY 50</span> 22,514.20 (+0.45%)</div>
+    <div class="ticker-item down"><span>SENSEX</span> 73,400.10 (-0.12%)</div>
+    <div class="ticker-item up"><span>BANKNIFTY</span> 48,930.55 (+0.80%)</div>
+    <div class="ticker-item down"><span>RELIANCE</span> 2,895.10 (-0.35%)</div>
+    <div class="ticker-item up"><span>TCS</span> 3,925.00 (+1.20%)</div>
+    <div class="ticker-item up"><span>HDFC BANK</span> 1,510.45 (+0.65%)</div>
+    <div class="ticker-item down"><span>INFY</span> 1,425.20 (-1.10%)</div>
+    <div class="ticker-item up"><span>ITC</span> 435.50 (+0.25%)</div>
+</div></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="navbar-brand">
+            <span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span>
+        </a>
+        <button class="menu-toggle" id="menu-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu" style="vertical-align: middle;"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+        <div class="navbar-nav" id="navbar-nav">
+            <a href="/pages/screeners.html" class="nav-link">Screeners</a>
+            <a href="/pages/sectors.html" class="nav-link">Sectors</a>
+            <div class="nav-item-dropdown">
+                <a href="#" class="nav-link">Calculators <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-grid">
+                        <a href="/pages/calculators/sip.html">SIP Calculator</a>
+                        <a href="/pages/calculators/brokerage.html">Brokerage Calculator</a>
+                        <a href="/pages/calculators/rd.html">RD Calculator</a>
+                        <a href="/pages/calculators/hra.html">HRA Calculator</a>
+                        <a href="/pages/calculators/home-loan.html">Home Loan EMI Calculator</a>
+                        <a href="/pages/calculators/lumpsum.html">Lumpsum Calculator</a>
+                        <a href="/pages/calculators/margin.html">Margin Calculator</a>
+                        <a href="/pages/calculators/fd.html">FD Calculator</a>
+                        <a href="/pages/calculators/swp.html">SWP Calculator</a>
+                        <a href="/pages/calculators/epf.html">EPF Calculator</a>
+                        <a href="/pages/calculators/tds.html">TDS Calculator</a>
+                        <a href="/pages/calculators/income-tax.html">Income Tax Calculator</a>
+                        <a href="/pages/calculators/emi.html">EMI Calculator</a>
+                        <a href="/pages/calculators/step-up-sip.html">Step-up SIP Calculator</a>
+                        <a href="/pages/calculators/ppf.html">PPF Calculator</a>
+                        <a href="/pages/calculators/gst.html">GST Calculator</a>
+                        <a href="/pages/calculators/car-loan.html">Car Loan Calculator</a>
+                    </div>
+                </div>
+            </div>
+            <a href="/pages/dashboard.html" class="nav-link">Dashboard</a>
+        </div>
+        <div class="navbar-actions">
+            <div class="search-container" style="max-width:240px">
+                <span class="search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+                <input type="text" class="search-input" id="global-search" placeholder="Search stocks...">
+                <div class="search-results" id="search-results"></div>
+            </div>
+            
+            <div id="auth-area"></div>
+        </div>
+    </div>
+</nav>
+
+<div class="page">
+    <div class="profile-page">
+        <!-- Profile Hero -->
+        <div class="profile-hero" id="profile-hero">
+            <div class="profile-avatar" id="profile-avatar">U</div>
+            <div class="profile-hero-info">
+                <h2 id="profile-name">Loading...</h2>
+                <p id="profile-email">—</p>
+                <span class="badge badge-info" id="profile-role">User</span>
+            </div>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="profile-section view-mode" id="section-personal">
+            <div class="profile-section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Personal Information
+            </div>
+            <div class="profile-grid">
+                <div class="profile-field">
+                    <label>Full Name</label>
+                    <div class="value" id="val-name">—</div>
+                    <input type="text" id="inp-name" placeholder="Enter your name">
+                </div>
+                <div class="profile-field">
+                    <label>Email Address</label>
+                    <div class="value" id="val-email">—</div>
+                    <input type="email" id="inp-email" placeholder="Email" disabled style="opacity:0.6; cursor:not-allowed;">
+                </div>
+                <div class="profile-field">
+                    <label>Mobile Number</label>
+                    <div class="value" id="val-mobile">—</div>
+                    <input type="tel" id="inp-mobile" placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="profile-field">
+                    <label>Date of Birth</label>
+                    <div class="value" id="val-dob">—</div>
+                    <input type="text" id="inp-dob" placeholder="DD/MM/YYYY">
+                </div>
+                <div class="profile-field">
+                    <label>Gender</label>
+                    <div class="value" id="val-gender">—</div>
+                    <select id="inp-gender">
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label>Marital Status</label>
+                    <div class="value" id="val-marital">—</div>
+                    <select id="inp-marital">
+                        <option value="">Select</option>
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label>Father's Name</label>
+                    <div class="value" id="val-father">—</div>
+                    <input type="text" id="inp-father" placeholder="Father's name">
+                </div>
+                <div class="profile-field">
+                    <label>Occupation</label>
+                    <div class="value" id="val-occupation">—</div>
+                    <select id="inp-occupation">
+                        <option value="">Select</option>
+                        <option value="student">Student</option>
+                        <option value="salaried">Salaried</option>
+                        <option value="self-employed">Self-Employed</option>
+                        <option value="business">Business</option>
+                        <option value="retired">Retired</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn btn-primary" id="btn-edit" onclick="toggleEdit()">Edit Profile</button>
+                <button class="btn btn-outline" id="btn-cancel" onclick="cancelEdit()" style="display:none;">Cancel</button>
+                <button class="btn btn-primary" id="btn-save" onclick="saveProfile()" style="display:none;">Save Changes</button>
+            </div>
+        </div>
+
+        <!-- Investment Profile -->
+        <div class="profile-section view-mode" id="section-investment">
+            <div class="profile-section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 5-10"/></svg>
+                Investment Profile
+            </div>
+            <div class="profile-grid">
+                <div class="profile-field">
+                    <label>Risk Profile</label>
+                    <div class="value" id="val-risk">—</div>
+                    <select id="inp-risk">
+                        <option value="Conservative">Conservative</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Aggressive">Aggressive</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label>Experience Level</label>
+                    <div class="value" id="val-experience">—</div>
+                    <select id="inp-experience">
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Professional">Professional</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label>Annual Income Range</label>
+                    <div class="value" id="val-income">—</div>
+                    <select id="inp-income">
+                        <option value="">Select</option>
+                        <option value="250000">Up to ₹2.5L</option>
+                        <option value="500000">₹2.5L – ₹5L</option>
+                        <option value="1000000">₹5L – ₹10L</option>
+                        <option value="2500000">₹10L – ₹25L</option>
+                        <option value="5000000">₹25L – ₹50L</option>
+                        <option value="10000000">₹50L+</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label>Investment Goals</label>
+                    <div class="value" id="val-goals">—</div>
+                    <input type="text" id="inp-goals" placeholder="e.g., Wealth creation, Retirement">
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn btn-primary" id="btn-edit-inv" onclick="toggleEditInv()">Edit Investment Profile</button>
+                <button class="btn btn-outline" id="btn-cancel-inv" onclick="cancelEditInv()" style="display:none;">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-inv" onclick="saveInvestmentProfile()" style="display:none;">Save Changes</button>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="profile-section">
+            <div class="profile-section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                Quick Links
+            </div>
+            <div class="quick-links">
+                <a href="/pages/change-password.html" class="quick-link">
+                    <div class="quick-link-icon" style="background: var(--blue-dim); color: var(--primary);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 1em; height: 1em; vertical-align: middle;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+                    Change Password
+                </a>
+                <a href="/pages/dashboard.html" class="quick-link">
+                    <div class="quick-link-icon" style="background: var(--cyan-dim); color: var(--cyan);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 1em; height: 1em; vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></div>
+                    My Dashboard
+                </a>
+                <a href="/pages/dashboard.html#watchlists" class="quick-link">
+                    <div class="quick-link-icon" style="background: var(--emerald-dim); color: var(--emerald);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 1em; height: 1em; vertical-align: middle;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+                    My Watchlists
+                </a>
+                <a href="/pages/calculators.html" class="quick-link">
+                    <div class="quick-link-icon" style="background: var(--magenta-dim); color: var(--magenta);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 1em; height: 1em; vertical-align: middle;"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg></div>
+                    Financial Calculators
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-grid" style="grid-template-columns: minmax(280px, 1.5fr) 1fr 2fr 1fr;">
+            <div class="footer-col" style="max-width: 280px;">
+                <a href="/" class="navbar-brand" style="margin-bottom: 16px; display: inline-flex; color: var(--text); text-decoration: none;">
+                    <span class="logo-dot"></span> <span class="brand-text">Fin<span class="text-gradient">Sight</span></span>
+                </a>
+                <p style="color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6;">
+                    <strong style="color: var(--text-light);">FinSight Analytics</strong><br>
+                    Technology & Financial Tools for the modern retail investor.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="/pages/top-stocks.html">Top Stocks</a>
+                <a href="/pages/top-etfs.html">Top ETFs</a>
+                <a href="/pages/top-funds.html">Mutual Funds</a>
+                <a href="/pages/commodities.html">Commodities</a>
+                <a href="/pages/currencies.html">Currencies</a>
+                <a href="/pages/screeners.html">Stock Screener</a>
+            </div>
+            <div class="footer-col">
+                <h4>Calculators</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px;">
+                    <a href="/pages/calculators/sip.html">SIP Calculator</a>
+                    <a href="/pages/calculators/brokerage.html">Brokerage</a>
+                    <a href="/pages/calculators/rd.html">RD Calculator</a>
+                    <a href="/pages/calculators/fd.html">FD Calculator</a>
+                    <a href="/pages/calculators/home-loan.html">Home Loan EMI</a>
+                    <a href="/pages/calculators/lumpsum.html">Lumpsum</a>
+                    <a href="/pages/calculators/margin.html">Margin</a>
+                    <a href="/pages/calculators/swp.html">SWP</a>
+                    <a href="/pages/calculators/epf.html">EPF</a>
+                    <a href="/pages/calculators/tds.html">TDS</a>
+                    <a href="/pages/calculators/income-tax.html">Income Tax</a>
+                    <a href="/pages/calculators/emi.html">EMI</a>
+                    <a href="/pages/calculators/step-up-sip.html">Step-up SIP</a>
+                    <a href="/pages/calculators/ppf.html">PPF</a>
+                    <a href="/pages/calculators/gst.html">GST</a>
+                    <a href="/pages/calculators/car-loan.html">Car Loan</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="/pages/about.html">About Us</a>
+                <a href="/pages/help.html">Help & Support</a>
+                <a href="/pages/trust.html">Trust & Safety</a>
+                <a href="/pages/guidelines.html">Community Guidelines</a>
+                <a href="/pages/disclosures.html">Disclosures</a>
+                <a href="/pages/privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 <span class="text-gradient">FinSight</span>. Educational platform — not investment advice.
+        </div>
+    </div>
+</footer>
+
+<script src="/static/js/main.js"></script>
+<script>
+    // Auth guard
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!Auth.isLoggedIn()) {
+            window.location.href = '/pages/login.html';
+            return;
+        }
+        loadProfile();
+    });
+
+    let profileData = {};
+
+    async function loadProfile() {
+        try {
+            const data = await api.get('/user/profile');
+            profileData = data;
+
+            // Hero
+            const initials = (data.name || 'U').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            document.getElementById('profile-avatar').textContent = initials;
+            document.getElementById('profile-name').textContent = data.name || 'User';
+            document.getElementById('profile-email').textContent = data.email || '';
+            document.getElementById('profile-role').textContent = data.role === 'admin' ? 'Admin' : 'Member';
+
+            // Personal
+            setVal('val-name', data.name);
+            setVal('val-email', data.email);
+            setVal('val-mobile', data.mobile_number);
+            setVal('val-dob', data.dob);
+            setVal('val-gender', capitalize(data.gender));
+            setVal('val-marital', capitalize(data.marital_status));
+            setVal('val-father', data.fathers_name);
+            setVal('val-occupation', capitalize(data.occupation));
+
+            // Investment
+            setVal('val-risk', data.risk_profile);
+            setVal('val-experience', data.experience_level);
+            setVal('val-income', formatIncome(data.income_range));
+            setVal('val-goals', data.goals);
+
+            // Pre-fill inputs
+            setInp('inp-name', data.name);
+            setInp('inp-email', data.email);
+            setInp('inp-mobile', data.mobile_number);
+            setInp('inp-dob', data.dob);
+            setInp('inp-gender', data.gender);
+            setInp('inp-marital', data.marital_status);
+            setInp('inp-father', data.fathers_name);
+            setInp('inp-occupation', data.occupation);
+            setInp('inp-risk', data.risk_profile);
+            setInp('inp-experience', data.experience_level);
+            setInp('inp-income', data.income_range);
+            setInp('inp-goals', data.goals);
+
+        } catch (err) {
+            showToast('Failed to load profile', 'error');
+        }
+    }
+
+    function setVal(id, val) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.textContent = val || '—';
+            el.classList.toggle('empty', !val);
+        }
+    }
+    function setInp(id, val) {
+        const el = document.getElementById(id);
+        if (el) el.value = val || '';
+    }
+    function capitalize(str) {
+        if (!str) return '';
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    function formatIncome(val) {
+        if (!val) return '';
+        const n = Number(val);
+        if (n >= 10000000) return '₹50L+';
+        if (n >= 2500000) return '₹25L – ₹50L';
+        if (n >= 1000000) return '₹5L – ₹10L';
+        if (n >= 500000) return '₹2.5L – ₹5L';
+        if (n >= 250000) return 'Up to ₹2.5L';
+        return '₹' + n.toLocaleString();
+    }
+
+    // Edit toggles
+    function toggleEdit() {
+        const section = document.getElementById('section-personal');
+        section.classList.remove('view-mode');
+        section.classList.add('edit-mode');
+        document.getElementById('btn-edit').style.display = 'none';
+        document.getElementById('btn-cancel').style.display = '';
+        document.getElementById('btn-save').style.display = '';
+    }
+    function cancelEdit() {
+        const section = document.getElementById('section-personal');
+        section.classList.remove('edit-mode');
+        section.classList.add('view-mode');
+        document.getElementById('btn-edit').style.display = '';
+        document.getElementById('btn-cancel').style.display = 'none';
+        document.getElementById('btn-save').style.display = 'none';
+        // Reset inputs
+        loadProfile();
+    }
+    async function saveProfile() {
+        const data = {
+            name: document.getElementById('inp-name').value,
+            mobile_number: document.getElementById('inp-mobile').value,
+            dob: document.getElementById('inp-dob').value,
+            gender: document.getElementById('inp-gender').value,
+            marital_status: document.getElementById('inp-marital').value,
+            fathers_name: document.getElementById('inp-father').value,
+            occupation: document.getElementById('inp-occupation').value,
+        };
+        try {
+            await api.put('/user/profile', data);
+            showToast('Profile updated successfully', 'success');
+            cancelEdit();
+            // Update navbar user name
+            const user = Auth.getUser();
+            if (user) { user.name = data.name; Auth.setUser(user); }
+        } catch (err) {
+            showToast('Failed to update profile', 'error');
+        }
+    }
+
+    function toggleEditInv() {
+        const section = document.getElementById('section-investment');
+        section.classList.remove('view-mode');
+        section.classList.add('edit-mode');
+        document.getElementById('btn-edit-inv').style.display = 'none';
+        document.getElementById('btn-cancel-inv').style.display = '';
+        document.getElementById('btn-save-inv').style.display = '';
+    }
+    function cancelEditInv() {
+        const section = document.getElementById('section-investment');
+        section.classList.remove('edit-mode');
+        section.classList.add('view-mode');
+        document.getElementById('btn-edit-inv').style.display = '';
+        document.getElementById('btn-cancel-inv').style.display = 'none';
+        document.getElementById('btn-save-inv').style.display = 'none';
+        loadProfile();
+    }
+    async function saveInvestmentProfile() {
+        const data = {
+            risk_profile: document.getElementById('inp-risk').value,
+            experience_level: document.getElementById('inp-experience').value,
+            income_range: document.getElementById('inp-income').value,
+            goals: document.getElementById('inp-goals').value,
+        };
+        try {
+            await api.put('/user/profile', data);
+            showToast('Investment profile updated', 'success');
+            cancelEditInv();
+        } catch (err) {
+            showToast('Failed to update investment profile', 'error');
+        }
+    }
+</script>
+</body>
+</html>
+
