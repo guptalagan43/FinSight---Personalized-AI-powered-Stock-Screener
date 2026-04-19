@@ -102,18 +102,112 @@ class YFinanceDataProvider:
         self._cache = {}
         self._cache_ttl = 300  # 5 minutes
 
+    # ── Yahoo Finance symbol mapping ────────────────────────────
+    # Maps our internal DB symbols to Yahoo Finance ticker symbols
+    _SYMBOL_MAP = {
+        # Indian Indices
+        "NIFTY_50": "^NSEI", "NIFTY50": "^NSEI", "NIFTY 50": "^NSEI",
+        "SENSEX": "^BSESN",
+        "NIFTY_BANK": "^NSEBANK", "BANKNIFTY": "^NSEBANK",
+        "INDIA_VIX": "^INDIAVIX",
+        "NIFTY_IT": "^CNXIT",
+        "NIFTY_MIDCAP_100": "NIFTY_MIDCAP_100.NS",
+        "NIFTY_SMALLCAP_100": "^CNXSC",
+        "NIFTY_MIDCAP_150": "NIFTY_MIDCAP_150.NS",
+        "NIFTY_PHARMA": "^CNXPHARMA",
+        "NIFTY_100": "^CNX100",
+        "NIFTY_AUTO": "^CNXAUTO",
+        "NIFTY_METAL": "^CNXMETAL",
+        "NIFTY_REALTY": "^CNXREALTY",
+        "NIFTY_PSU_BANK": "^CNXPSUBANK",
+        "NIFTY_FMCG": "^CNXFMCG",
+        "NIFTY_FIN_SERVICE": "NIFTY_FIN_SERVICE.NS",
+        "NIFTY_PVT_BANK": "NIFTY_PVT_BANK.NS",
+        "NIFTY_NEXT_50": "^NSMIDCP",
+        "GIFT_NIFTY": "^NSEI",  # approximate
+        # International Indices (approximate symbols)
+        "KOSPI_INDEX": "^KS11",
+        "HANG_SENG_INDEX": "^HSI",
+        "US_TECH_100": "^NDX",
+        "DOW_JONES_FUTURES": "YM=F",
+        "DOW_JONES_INDEX": "^DJI",
+        "BSE_100": "BSE-100.BO",
+        "BSE_BANKEX": "BSE-BANKEX.BO",
+        "S&P_500": "^GSPC",
+        "FTSE_100_INDEX": "^FTSE",
+        "NIKKEI_INDEX": "^N225",
+        "DAX_INDEX": "^GDAXI",
+        "CAC_INDEX": "^FCHI",
+        # Common stock aliases
+        "HDFCBANK": "HDFCBANK.NS",
+        "ICICIBANK": "ICICIBANK.NS",
+        "SBIN": "SBIN.NS",
+        "TATAMOTORS": "TATAMOTORS.NS",
+        "BAJFINANCE": "BAJFINANCE.NS",
+        "SUNPHARMA": "SUNPHARMA.NS",
+        "HINDUNILVR": "HINDUNILVR.NS",
+        "BHARTIARTL": "BHARTIARTL.NS",
+        "AXISBANK": "AXISBANK.NS",
+        "KOTAKBANK": "KOTAKBANK.NS",
+        "ASIANPAINT": "ASIANPAINT.NS",
+        "ADANIENT": "ADANIENT.NS",
+        "ADANIPORTS": "ADANIPORTS.NS",
+        "TATASTEEL": "TATASTEEL.NS",
+        "JSWSTEEL": "JSWSTEEL.NS",
+        "HCLTECH": "HCLTECH.NS",
+        "TECHM": "TECHM.NS",
+        "EICHERMOT": "EICHERMOT.NS",
+        "HEROMOTOCO": "HEROMOTOCO.NS",
+        "DRREDDY": "DRREDDY.NS",
+        "DIVISLAB": "DIVISLAB.NS",
+        "ULTRACEMCO": "ULTRACEMCO.NS",
+        "NESTLEIND": "NESTLEIND.NS",
+        "APOLLOHOSP": "APOLLOHOSP.NS",
+        "POWERGRID": "POWERGRID.NS",
+        "COALINDIA": "COALINDIA.NS",
+        "GRASIM": "GRASIM.NS",
+        "BAJAJFINSV": "BAJAJFINSV.NS",
+        "SBILIFE": "SBILIFE.NS",
+        "TATACONSUM": "TATACONSUM.NS",
+        "BRITANNIA": "BRITANNIA.NS",
+        # ETFs
+        "NIFTYBEES": "NIFTYBEES.NS",
+        "GOLDBEES": "GOLDBEES.NS",
+        "BANKBEES": "BANKBEES.NS",
+        "LIQUIDBEES": "LIQUIDBEES.NS",
+        "ITBEES": "ITBEES.NS",
+        "SILVERBEES": "SILVERBEES.NS",
+        "CPSEETF": "CPSEETF.NS",
+        "MID150BEES": "MID150BEES.NS",
+        "MON100": "MON100.NS",
+        "PHARMABEES": "PHARMABEES.NS",
+        # Mid/Small caps
+        "SUZLON": "SUZLON.NS",
+        "IREDA": "IREDA.NS",
+        "ZOMATO": "ZOMATO.NS",
+        "PAYTM": "PAYTM.NS",
+        "JIOFIN": "JIOFIN.NS",
+        "TATATECH": "TATATECH.NS",
+        "CDSL": "CDSL.NS",
+    }
+
     def _resolve_symbol(self, symbol: str) -> str:
         """
         Ensure the symbol is Yahoo Finance compatible.
-        Indian NSE stocks need a '.NS' suffix (e.g., RELIANCE -> RELIANCE.NS).
-        Symbols that already contain a dot (e.g., AAPL, RELIANCE.NS) are left as-is.
+        Uses a lookup table for indices and special symbols, otherwise
+        appends .NS for Indian NSE stocks.
         """
         if not symbol:
             return symbol
-        if "." in symbol:
+        upper = symbol.strip().upper()
+        # Check the mapping first
+        if upper in self._SYMBOL_MAP:
+            return self._SYMBOL_MAP[upper]
+        # Already has a dot or caret → leave as-is
+        if "." in symbol or symbol.startswith("^"):
             return symbol
-        # Try the plain symbol first; if it looks like an Indian stock we add .NS
-        return f"{symbol}.NS"
+        # Default: assume NSE stock
+        return f"{upper}.NS"
 
     def _get_info(self, symbol: str) -> dict:
         """
@@ -136,16 +230,6 @@ class YFinanceDataProvider:
     def get_quote(self, symbol: str) -> dict:
         """Return a real-time quote from Yahoo Finance."""
         info = self._get_info(symbol)
-        if not info or info.get("trailingPegRatio") is None and info.get("regularMarketPrice") is None:
-            # Fallback: try without .NS suffix (for US stocks)
-            plain_info = {}
-            try:
-                ticker = self._yf.Ticker(symbol)
-                plain_info = ticker.info or {}
-            except Exception:
-                pass
-            if plain_info.get("regularMarketPrice"):
-                info = plain_info
 
         price = info.get("regularMarketPrice") or info.get("currentPrice") or 0
         prev_close = info.get("regularMarketPreviousClose") or info.get("previousClose") or price
