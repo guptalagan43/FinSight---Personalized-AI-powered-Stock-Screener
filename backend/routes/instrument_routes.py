@@ -22,13 +22,13 @@ def search():
     # Overlay live prices
     try:
         provider = get_data_provider()
-        if hasattr(provider, '_yf'):
+        if hasattr(provider, '_get_slim_quote'):
             for r in results:
                 try:
-                    quote = provider.get_quote(r["symbol"])
-                    if quote and quote.get("price"):
-                        r["current_price"] = quote["price"]
-                        r["day_change_pct"] = quote["change_pct"]
+                    slim = provider._get_slim_quote(r["symbol"])
+                    if slim and slim.get("price"):
+                        r["current_price"] = slim["price"]
+                        r["day_change_pct"] = slim["change_pct"]
                 except Exception:
                     pass
     except Exception:
@@ -83,23 +83,20 @@ def detail(instrument_id):
     # Overlay live quote data from yfinance (if available)
     try:
         provider = get_data_provider()
-        if hasattr(provider, '_yf'):  # YFinanceDataProvider
-            quote = provider.get_quote(inst["symbol"])
-            if quote and quote.get("price"):
-                inst["current_price"] = quote["price"]
-                inst["day_change"] = quote["change"]
-                inst["day_change_pct"] = quote["change_pct"]
-                inst["prev_close"] = quote["prev_close"]
-                inst["volume"] = quote.get("volume", inst.get("volume"))
-            # Also fetch 52w high/low and market cap from info
-            info = provider._get_info(inst["symbol"])
-            if info:
-                if info.get("fiftyTwoWeekHigh"):
-                    inst["high_52w"] = round(float(info["fiftyTwoWeekHigh"]), 2)
-                if info.get("fiftyTwoWeekLow"):
-                    inst["low_52w"] = round(float(info["fiftyTwoWeekLow"]), 2)
-                if info.get("marketCap"):
-                    inst["market_cap"] = round(float(info["marketCap"]) / 10000000, 2)  # Convert to Cr
+        if hasattr(provider, '_get_slim_quote'):
+            slim = provider._get_slim_quote(inst["symbol"])
+            if slim and slim.get("price"):
+                inst["current_price"] = slim["price"]
+                inst["day_change"] = slim["change"]
+                inst["day_change_pct"] = slim["change_pct"]
+                inst["prev_close"] = slim["prev_close"]
+                inst["volume"] = slim.get("volume", inst.get("volume"))
+                if slim.get("high_52w"):
+                    inst["high_52w"] = slim["high_52w"]
+                if slim.get("low_52w"):
+                    inst["low_52w"] = slim["low_52w"]
+                if slim.get("market_cap"):
+                    inst["market_cap"] = slim["market_cap"]
     except Exception as e:
         print(f"[Instrument Detail] Live quote overlay failed for {inst.get('symbol')}: {e}")
 
