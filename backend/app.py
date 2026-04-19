@@ -115,6 +115,7 @@ from routes.chat_routes import chat_bp
 from routes.admin_routes import admin_bp
 from routes.watchlist_routes import watchlist_bp, portfolio_bp
 from routes.news_routes import news_bp
+from routes.market_routes import market_bp
 
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(user_bp, url_prefix="/api/user")
@@ -126,6 +127,7 @@ app.register_blueprint(admin_bp, url_prefix="/api/admin")
 app.register_blueprint(watchlist_bp, url_prefix="/api/watchlists")
 app.register_blueprint(portfolio_bp, url_prefix="/api/portfolio")
 app.register_blueprint(news_bp, url_prefix="/api/news")
+app.register_blueprint(market_bp, url_prefix="/api/market")
 
 
 # ── Serve frontend static files ──────────────────────────────

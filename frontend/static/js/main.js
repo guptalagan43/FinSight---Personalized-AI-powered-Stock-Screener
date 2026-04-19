@@ -510,6 +510,36 @@ function initCompareNav() {
     });
 }
 
+// ── Dynamic Ticker Bar (Global) ─────────────────────────────
+async function initDynamicTicker() {
+    const tickerMove = document.querySelector('.ticker-move');
+    if (!tickerMove) return;
+
+    try {
+        const res = await fetch('/api/market/ticker');
+        if (!res.ok) return;
+        const data = await res.json();
+        const items = data.ticker || [];
+        if (!items.length) return;
+
+        let html = '';
+        // Repeat items enough times for seamless scrolling
+        for (let rep = 0; rep < 10; rep++) {
+            items.forEach(t => {
+                const isUp = t.change_pct >= 0;
+                const cls = isUp ? 'up' : 'down';
+                const sign = isUp ? '+' : '';
+                const price = t.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                html += `<div class="ticker-item ${cls}"><span>${t.name}</span> ${price} (${sign}${t.change_pct.toFixed(2)}%)</div>`;
+            });
+        }
+        tickerMove.innerHTML = html;
+    } catch (e) {
+        // Keep existing hardcoded ticker as fallback
+        console.log('Ticker API unavailable, using static fallback');
+    }
+}
+
 // ── Init on DOM ready ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
@@ -519,6 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFooterSections();
     initScrollToTop();
     initKeyboardShortcuts();
+    initDynamicTicker();
 });
 
 // Global Glow Card Tracker
